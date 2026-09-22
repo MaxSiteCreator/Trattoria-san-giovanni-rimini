@@ -44,11 +44,11 @@ section,footer{position:relative}
 .ld-h{position:absolute;left:0;right:0;height:50.2%;background:var(--ragu-d);transition:transform 1.15s cubic-bezier(.77,0,.18,1);overflow:hidden}
 .ld-h::after{content:'';position:absolute;inset:0;background:conic-gradient(rgba(255,255,255,.09) 25%,transparent 0 50%,rgba(255,255,255,.09) 0 75%,transparent 0) 0 0/56px 56px}
 .ld-t{top:0}.ld-b{bottom:0}
-.ld-mark{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-family:var(--ff-d);font-style:italic;font-size:clamp(30px,8vw,72px);line-height:1;letter-spacing:-.03em;color:var(--crema);z-index:2;animation:pulse 1.4s ease-in-out infinite;transition:opacity .5s,transform 1s var(--ease)}
+.ld-mark{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-family:var(--ff-d);font-style:italic;font-size:clamp(30px,8vw,72px);line-height:1;letter-spacing:-.03em;color:var(--crema);z-index:2;animation:pulse 1.4s ease-in-out infinite;transition:opacity .4s ease,transform .5s var(--ease)}
 .ld-mark small{display:block;font-family:var(--ff-b);font-style:normal;font-size:13px;letter-spacing:.3em;text-transform:uppercase;margin-top:14px;opacity:.75}
 .ready .ld-t{transform:translateY(-101%)}
 .ready .ld-b{transform:translateY(101%)}
-.ready .ld-mark{opacity:0;transform:scale(1.15)}
+.ready .ld-mark{animation:none;opacity:0;transform:scale(1.15)}
 
 /* filo di pasta che si srotola con lo scroll */
 #sp{position:fixed;right:3px;top:0;width:18px;height:100vh;height:100dvh;z-index:45;pointer-events:none}
@@ -82,34 +82,25 @@ section,footer{position:relative}
 /* hero */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding:120px 0 max(44px,env(safe-area-inset-bottom));background:radial-gradient(120% 80% at 82% 8%,#3d1508 0%,transparent 60%),radial-gradient(90% 60% at 8% 100%,#2c0f09 0%,transparent 70%),var(--ink)}
 .hero::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(19,10,7,.82) 0%,rgba(19,10,7,0) 20%,rgba(19,10,7,0) 34%,rgba(19,10,7,.78) 74%,var(--ink) 100%)}
-
-/* effetto leggero dell'hero: solo CSS, niente canvas.
-   Due aloni caldi che respirano lentamente + qualche granello di farina che sale. */
-.hero-fx{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.hero-fx .g{position:absolute;border-radius:50%;will-change:transform}
-.hero-fx .g1{width:70vmax;height:70vmax;right:-24vmax;top:-22vmax;background:radial-gradient(circle,rgba(233,166,58,.30),rgba(233,166,58,0) 65%);animation:glow 14s ease-in-out infinite alternate}
-.hero-fx .g2{width:62vmax;height:62vmax;left:-26vmax;bottom:-26vmax;background:radial-gradient(circle,rgba(192,48,31,.34),rgba(192,48,31,0) 65%);animation:glow 18s ease-in-out infinite alternate-reverse}
-.hero-fx .f{position:absolute;bottom:-12px;width:5px;height:5px;border-radius:50%;background:var(--crema);opacity:0;animation:flour var(--t,12s) linear var(--dl,0s) infinite}
-
 .hero-in{position:relative;z-index:2;width:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid rgba(251,241,220,.28);border-radius:999px;font-size:14px;background:rgba(19,10,7,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--wa);animation:ping 2s infinite}
 .mega{position:relative;font-family:var(--ff-d);line-height:.86;letter-spacing:-.045em;font-size:clamp(50px,16.6vw,250px);margin:22px 0 10px;text-shadow:0 6px 40px rgba(0,0,0,.45)}
 .mega .line{display:block;overflow:hidden;padding:.06em .05em .12em;margin-left:-.05em}
-.hero.free .mega .line{overflow:visible}
 .mega .l1{font-style:italic;color:var(--sfoglia);font-size:.6em}
 .mega .l2{color:var(--crema)}
-.ch{display:inline-block;transform:translateY(105%) rotate(9deg);opacity:0;transition:transform 1.15s cubic-bezier(.16,1,.3,1) calc(var(--i)*60ms + .75s),opacity .6s calc(var(--i)*60ms + .75s)}
+.ch{display:inline-block;will-change:transform;transform:translateY(105%) rotate(9deg);opacity:0;transition:transform 1.15s cubic-bezier(.16,1,.3,1) calc(var(--i)*60ms + 1.3s),opacity .6s calc(var(--i)*60ms + 1.3s)}
 .ready .ch{transform:none;opacity:1}
 .lead{max-width:34ch;font-size:clamp(17px,2.2vw,23px);color:rgba(251,241,220,.85);margin:14px 0 26px}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .facts{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:28px;font-size:15px;color:rgba(251,241,220,.78)}
 .facts b{color:var(--sfoglia);font-weight:600}
-.badge{position:absolute;z-index:3;right:var(--pad);top:clamp(88px,13vh,130px);width:clamp(104px,22vw,150px);aspect-ratio:1;transition:transform .4s var(--ease)}
+.badge{display:none;position:absolute;z-index:3;right:var(--pad);top:132px;width:clamp(104px,16vw,150px);aspect-ratio:1;transition:transform .4s var(--ease)}
 .badge:hover{transform:scale(1.08) rotate(6deg)}
 .badge .ring{width:100%;height:100%;animation:spin 20s linear infinite}
 .bc{position:absolute;inset:30%;border-radius:50%;background:var(--wa);color:#04200e;display:grid;place-items:center;box-shadow:0 10px 30px -6px rgba(37,211,102,.6)}
 .bc .ic{width:52%;height:52%}
+@media(min-width:720px){.badge{display:block}}
 
 /* orlo tovaglia + scritte a nastro */
 .tovaglia{height:28px;background:conic-gradient(var(--ragu) 25%,var(--crema) 0 50%,var(--ragu) 0 75%,var(--crema) 0) 0 0/28px 28px}
@@ -148,9 +139,8 @@ section,footer{position:relative}
 .chalk-line{width:min(280px,60%);height:14px;margin-top:6px;overflow:visible}
 .chalk-line path{fill:none;stroke:var(--yolk);stroke-width:4;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;transition:stroke-dashoffset 1.4s var(--ease) .3s}
 .in .chalk-line path,.chalk-line.in path{stroke-dashoffset:0}
-.tabs{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 12px;scrollbar-width:none;margin-top:8px}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;padding:12px 22px 10px;border-radius:999px;border:1.5px dashed rgba(251,241,220,.45);font-family:var(--ff-h);font-size:28px;line-height:1;background:transparent;cursor:pointer;transition:background .3s,color .3s,transform .3s var(--ease)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px 10px;padding:6px 0 12px;margin-top:8px}
+.tab{flex:0 0 auto;padding:10px 18px 8px;border-radius:999px;border:1.5px dashed rgba(251,241,220,.45);font-family:var(--ff-h);font-size:22px;line-height:1;background:transparent;cursor:pointer;transition:background .3s,color .3s,transform .3s var(--ease)}
 .tab:hover{transform:translateX(4px)}
 .tab[aria-selected=true]{background:var(--crema);color:#13201b;border-style:solid}
 .dishes{list-style:none}
@@ -165,7 +155,8 @@ section,footer{position:relative}
 @media(min-width:900px){
   .menu-grid{grid-template-columns:.8fr 1.2fr;gap:80px}
   .menu-l{position:sticky;top:110px;align-self:start}
-  .tabs{flex-direction:column;overflow:visible;align-items:flex-start;margin-top:30px}
+  .tabs{flex-direction:column;flex-wrap:nowrap;align-items:flex-start;margin-top:30px}
+  .tab{font-size:28px;padding:12px 22px 10px}
 }
 
 /* recensioni: comande */
@@ -276,14 +267,11 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
 @keyframes drift{from{transform:translate(-8px,-5px)}to{transform:translate(8px,5px)}}
 @keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
 @keyframes fabring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
-@keyframes glow{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(4vmax,3vmax,0) scale(1.1)}}
-@keyframes flour{0%{transform:translate3d(0,0,0);opacity:0}12%{opacity:.55}100%{transform:translate3d(var(--x,20px),-115vh,0);opacity:0}}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
   .js .rv{opacity:1;transform:none}
   .ch{opacity:1;transform:none}
-  .hero-fx .f{display:none}
 }
 </style>
 </head>
@@ -319,18 +307,6 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
 </nav>
 
 <header class="hero" id="top">
-  <div class="hero-fx" aria-hidden="true">
-    <i class="g g1"></i><i class="g g2"></i>
-    <i class="f" style="left:8%;--t:13s;--dl:0s;--x:26px"></i>
-    <i class="f" style="left:19%;--t:16s;--dl:3s;--x:-18px;width:4px;height:4px"></i>
-    <i class="f" style="left:31%;--t:12s;--dl:6s;--x:22px"></i>
-    <i class="f" style="left:44%;--t:17s;--dl:1.5s;--x:-30px;width:3px;height:3px"></i>
-    <i class="f" style="left:57%;--t:14s;--dl:8s;--x:18px"></i>
-    <i class="f" style="left:69%;--t:15s;--dl:4.5s;--x:-24px;width:4px;height:4px"></i>
-    <i class="f" style="left:81%;--t:12.5s;--dl:2s;--x:20px"></i>
-    <i class="f" style="left:92%;--t:18s;--dl:7s;--x:-16px;width:3px;height:3px"></i>
-  </div>
-
   <a class="badge" data-wa aria-label="Prenota su WhatsApp">
     <svg class="ring" viewBox="0 0 150 150" aria-hidden="true">
       <defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
@@ -342,8 +318,8 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
   <div class="wrap hero-in">
     <p class="eyebrow"><span class="dot"></span>Trattoria romagnola a Rimini · cena dalle 19:30</p>
     <h1 class="mega" aria-label="San Giovanni">
-      <span class="line l1">San</span>
-      <span class="line l2">Giovanni</span>
+      <span class="line l1" data-w="300">San</span>
+      <span class="line l2" data-w="760">Giovanni</span>
     </h1>
     <p class="lead">Tagliatelle, cappelletti e brace: la cucina romagnola come si mangia la domenica, in una trattoria calda e accogliente.</p>
     <div class="cta">
@@ -573,26 +549,24 @@ let started=false;
 function start(){
   if(started)return;started=true;
   html.classList.add('ready');
-  setTimeout(()=>{hero.classList.add('free')},RM?0:2500);
   setTimeout(()=>{const l=$('#loader');l&&l.remove()},1700);
 }
 const fontsP=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
 window.addEventListener('load',()=>{Promise.race([fontsP,new Promise(r=>setTimeout(r,1800))]).then(()=>setTimeout(start,RM?0:500))});
 setTimeout(start,4200);
 
-/* ---------- lettere del titolo (entrata) ---------- */
+/* ---------- lettere del titolo ---------- */
 $$('.mega .line').forEach(line=>{
   const t=line.textContent.trim(),off=line.classList.contains('l2')?3:0;
   line.textContent='';
   [...t].forEach((c,i)=>{const s=document.createElement('span');s.className='ch';s.textContent=c;s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i+off);line.appendChild(s)});
 });
 
-/* ---------- nastri di scritte ---------- */
+/* ---------- nastri di scritte a scorrimento ---------- */
 let last=performance.now(),SV=0,scrollLast=scrollY;
 const mqs=$$('.mq').map(el=>{const tr=$('.mq-track',el);return{tr,h:tr.innerHTML,dir:+el.dataset.dir||1,sp:+el.dataset.sp||50,x:0,w:0}});
 function mqBuild(){mqs.forEach(m=>{m.tr.innerHTML=m.h;const w0=m.tr.getBoundingClientRect().width||1;let n=1;while(m.tr.getBoundingClientRect().width<innerWidth*2+w0&&n<10){m.tr.insertAdjacentHTML('beforeend',m.h);n++}m.w=w0;m.x=m.dir<0?-w0:0})}
 mqBuild();
-
 function frame(now){
   requestAnimationFrame(frame);
   const dt=Math.min(.05,(now-last)/1000||.016);last=now;
