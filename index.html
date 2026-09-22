@@ -173,9 +173,20 @@ section,footer{position:relative}
 .ticket .tkfoot{color:#8a7458;font-style:normal}
 .stamp{position:absolute;right:16px;bottom:56px;border:2px solid var(--ragu);color:var(--ragu);padding:2px 9px;font-weight:500;transform:rotate(-12deg);font-size:12px;letter-spacing:.14em;opacity:.85;border-radius:4px}
 .rev-note{color:rgba(251,241,220,.8);font-size:14px}
+.tk-wrap{position:relative}
+.tk-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(19,10,7,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--crema);border:1.5px solid rgba(251,241,220,.4);font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;transition:opacity .25s,transform .2s,background .2s}
+.tk-nav:active{transform:translateY(-50%) scale(.9)}
+.tk-nav:hover{background:rgba(19,10,7,.92)}
+.tk-prev{left:2px}
+.tk-next{right:2px}
+.tk-nav[disabled]{opacity:0;pointer-events:none}
+.tk-dots{display:flex;justify-content:center;gap:9px;margin-top:-40px;padding-bottom:14px}
+.tk-dot{width:7px;height:7px;border-radius:50%;background:rgba(251,241,220,.32);transition:background .25s,transform .25s}
+.tk-dot.on{background:var(--crema);transform:scale(1.35)}
 @media(min-width:1000px){
   .tickets{flex-wrap:wrap;justify-content:center;overflow:visible;scroll-snap-type:none;max-width:1240px;margin:0 auto}
   .tk{flex-basis:calc(33.333% - 20px)}
+  .tk-nav,.tk-dots{display:none}
 }
 
 /* prenota */
@@ -394,7 +405,12 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
       </div>
     </div>
   </div>
-  <div class="tickets" id="tickets" tabindex="0" aria-label="Recensioni dei clienti, scorri di lato"></div>
+  <div class="tk-wrap">
+    <div class="tickets" id="tickets" tabindex="0" aria-label="Recensioni dei clienti, scorri di lato"></div>
+    <button class="tk-nav tk-prev" id="tkPrev" type="button" aria-label="Recensione precedente">‹</button>
+    <button class="tk-nav tk-next" id="tkNext" type="button" aria-label="Recensione successiva">›</button>
+  </div>
+  <div class="tk-dots" id="tkDots"></div>
   <div class="wrap"><p class="rev-note">Estratti da recensioni pubbliche su Google Maps. Le recensioni non sono verificate.</p></div>
 </section>
 
@@ -663,6 +679,33 @@ const rot=[-2.2,1.6,-1,2.1,-1.7,1.2];
 $('#tickets').innerHTML=TK.map((r,i)=>`<div class="tk rv" style="--d:${(i%3)*.1}s"><article class="ticket" style="--r:${rot[i]}deg"><header><span>COMANDA</span><span>N° ${String(i+1).padStart(3,'0')}</span></header><div class="st" aria-label="5 stelle">★★★★★</div><blockquote>“${r[0]}”</blockquote><p class="tkfoot">${r[1]}</p><span class="stamp">${r[2]}</span></article></div>`).join('');
 $$('#tickets .rv').forEach(el=>io.observe(el));
 $$('.chalk-line').forEach(el=>io.observe(el));
+
+/* ---------- frecce e puntini del carosello recensioni ---------- */
+{
+  const wrap=$('#tickets'),prevBtn=$('#tkPrev'),nextBtn=$('#tkNext'),dotsEl=$('#tkDots'),cards=$$('.tk',wrap);
+  dotsEl.innerHTML=cards.map((_,i)=>`<span class="tk-dot" data-i="${i}"></span>`).join('');
+  const dots=$$('.tk-dot',dotsEl);
+  let active=0;
+  function setActive(i){
+    active=i;
+    dots.forEach((d,j)=>d.classList.toggle('on',j===i));
+    prevBtn.disabled=i<=0;
+    nextBtn.disabled=i>=cards.length-1;
+  }
+  function goTo(i){
+    i=Math.max(0,Math.min(cards.length-1,i));
+    cards[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  }
+  prevBtn.addEventListener('click',()=>goTo(active-1));
+  nextBtn.addEventListener('click',()=>goTo(active+1));
+  if(dots.length)dots.forEach((d,i)=>d.style.cursor='pointer');
+  dotsEl.addEventListener('click',e=>{const d=e.target.closest('.tk-dot');if(d)goTo(+d.dataset.i)});
+  const cardIO=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){const i=cards.indexOf(e.target);if(i>-1)setActive(i)}});
+  },{root:wrap,threshold:.6});
+  cards.forEach(c=>cardIO.observe(c));
+  setActive(0);
+}
 
 /* ---------- prenotazione via WhatsApp ---------- */
 {
