@@ -200,7 +200,8 @@ section,footer{position:relative}
 .form>*{min-width:0}
 .form label,.form .lb{display:block;font-size:14px;font-weight:600;color:#7a5a45;margin-bottom:8px}
 .form input[type=text],.form input[type=date],.form textarea{width:100%;min-width:0;max-width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid #e3cfa8;background:#fff9ec;font-size:16px;color:var(--ink);font-family:var(--ff-b);transition:border-color .2s,box-shadow .2s;box-sizing:border-box}
-.form input[type=date]{-webkit-min-logical-width:0}
+.form input[type=date]{-webkit-min-logical-width:0;width:1px;min-width:100%;-webkit-appearance:none;appearance:none}
+.form input[type=date]::-webkit-date-and-time-value{text-align:left;min-width:0}
 .form input:focus,.form textarea:focus{outline:none;border-color:var(--ragu);box-shadow:0 0 0 4px rgba(192,48,31,.16)}
 .form textarea{resize:vertical;min-height:84px}
 .row2{display:grid;gap:20px;min-width:0}
