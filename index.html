@@ -174,11 +174,12 @@ section,footer{position:relative}
 .stamp{position:absolute;right:16px;bottom:56px;border:2px solid var(--ragu);color:var(--ragu);padding:2px 9px;font-weight:500;transform:rotate(-12deg);font-size:12px;letter-spacing:.14em;opacity:.85;border-radius:4px}
 .rev-note{color:rgba(251,241,220,.8);font-size:14px}
 .tk-wrap{position:relative}
-.tk-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(19,10,7,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--crema);border:1.5px solid rgba(251,241,220,.4);font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;transition:opacity .25s,transform .2s,background .2s}
-.tk-nav:active{transform:translateY(-50%) scale(.9)}
-.tk-nav:hover{background:rgba(19,10,7,.92)}
-.tk-prev{left:2px}
-.tk-next{right:2px}
+.tk-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(19,10,7,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1.5px solid rgba(241,207,122,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;box-shadow:0 10px 24px -8px rgba(0,0,0,.65);transition:opacity .25s,transform .2s,background .2s,border-color .2s}
+.tk-nav svg{width:20px;height:20px;fill:none;stroke:var(--sfoglia);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.tk-nav:active{transform:translateY(-50%) scale(.88)}
+.tk-nav:hover{background:rgba(19,10,7,.95);border-color:rgba(241,207,122,.85)}
+.tk-prev{left:8px}
+.tk-next{right:8px}
 .tk-nav[disabled]{opacity:0;pointer-events:none}
 .tk-dots{display:flex;justify-content:center;gap:9px;margin-top:-40px;padding-bottom:14px}
 .tk-dot{width:7px;height:7px;border-radius:50%;background:rgba(251,241,220,.32);transition:background .25s,transform .25s}
@@ -407,8 +408,8 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
   </div>
   <div class="tk-wrap">
     <div class="tickets" id="tickets" tabindex="0" aria-label="Recensioni dei clienti, scorri di lato"></div>
-    <button class="tk-nav tk-prev" id="tkPrev" type="button" aria-label="Recensione precedente">‹</button>
-    <button class="tk-nav tk-next" id="tkNext" type="button" aria-label="Recensione successiva">›</button>
+    <button class="tk-nav tk-prev" id="tkPrev" type="button" aria-label="Recensione precedente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="tk-nav tk-next" id="tkNext" type="button" aria-label="Recensione successiva"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
   <div class="tk-dots" id="tkDots"></div>
   <div class="wrap"><p class="rev-note">Estratti da recensioni pubbliche su Google Maps. Le recensioni non sono verificate.</p></div>
