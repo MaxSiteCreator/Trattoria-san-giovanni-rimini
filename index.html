@@ -188,12 +188,15 @@ section,footer{position:relative}
 @media(min-width:960px){.book-grid{grid-template-columns:1fr 1fr;gap:80px;align-items:start}}
 .perks{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .perks li{padding:9px 16px;border:1px solid rgba(251,241,220,.3);border-radius:999px;font-size:14px}
-.form{background:var(--crema);color:var(--ink);border-radius:34px;padding:clamp(22px,4vw,42px);display:grid;gap:20px;box-shadow:0 40px 90px -30px #000}
+.form{background:var(--crema);color:var(--ink);border-radius:34px;padding:clamp(22px,4vw,42px);display:grid;gap:20px;box-shadow:0 40px 90px -30px #000;overflow:hidden}
+.form>*{min-width:0}
 .form label,.form .lb{display:block;font-size:14px;font-weight:600;color:#7a5a45;margin-bottom:8px}
-.form input[type=text],.form input[type=date],.form textarea{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid #e3cfa8;background:#fff9ec;font-size:16px;color:var(--ink);font-family:var(--ff-b);transition:border-color .2s,box-shadow .2s}
+.form input[type=text],.form input[type=date],.form textarea{width:100%;min-width:0;max-width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid #e3cfa8;background:#fff9ec;font-size:16px;color:var(--ink);font-family:var(--ff-b);transition:border-color .2s,box-shadow .2s;box-sizing:border-box}
+.form input[type=date]{-webkit-min-logical-width:0}
 .form input:focus,.form textarea:focus{outline:none;border-color:var(--ragu);box-shadow:0 0 0 4px rgba(192,48,31,.16)}
 .form textarea{resize:vertical;min-height:84px}
-.row2{display:grid;gap:20px}
+.row2{display:grid;gap:20px;min-width:0}
+.row2>*{min-width:0}
 @media(min-width:560px){.row2{grid-template-columns:auto 1fr}}
 .step{display:flex;align-items:center;border:1.5px solid #e3cfa8;border-radius:999px;width:max-content;background:#fff9ec}
 .step button{width:54px;height:54px;font-size:26px;border:0;background:none;cursor:pointer;border-radius:50%;color:var(--ragu);-webkit-tap-highlight-color:transparent}
@@ -214,7 +217,6 @@ section,footer{position:relative}
 .mapbox iframe{filter:sepia(.3) saturate(.85) contrast(1.02);z-index:2}
 #mapg{transition:transform .5s var(--ease);transform-origin:300px 320px}
 .drift{animation:drift 12s ease-in-out infinite alternate}
-.route{stroke-dasharray:6 11;animation:dash 1s linear infinite}
 .pin{animation:bob 1.7s ease-in-out infinite}
 .rp{transform-box:fill-box;transform-origin:center;animation:rp 2.6s ease-out infinite}
 .maptoggle{position:absolute;z-index:4;top:18px;left:50%;transform:translateX(-50%);padding:10px 18px;border-radius:999px;border:1px solid rgba(251,241,220,.35);background:rgba(19,10,7,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -463,9 +465,7 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
             <line x1="-500" x2="1200" y1="334" y2="334" stroke="#f1cf7a" stroke-opacity=".4" stroke-width="1.5"/>
             <path id="viaP" d="M-300 326H1200" fill="none"/>
             <text font-size="15" font-weight="700" letter-spacing="5" fill="#f6e3b0" font-family="Instrument Sans,sans-serif"><textPath href="#viaP" startOffset="330">VIA FLAMINIA</textPath></text>
-            <path class="route" d="M150 610V320H300" fill="none" stroke="#f1cf7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
-          <g transform="translate(247 642)"><circle r="11" fill="#fbf1dc" stroke="#c0301f" stroke-width="4"/><text x="-26" y="6" font-size="15" font-weight="700" fill="#fbf1dc" text-anchor="end" font-family="Instrument Sans,sans-serif">Tu</text></g>
           <g transform="translate(300 320)">
             <circle class="rp" r="26" fill="none" stroke="#c0301f" stroke-width="3"/>
             <circle class="rp" r="26" fill="none" stroke="#c0301f" stroke-width="3" style="animation-delay:.9s"/>
