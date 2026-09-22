@@ -50,11 +50,6 @@ section,footer{position:relative}
 .ready .ld-b{transform:translateY(101%)}
 .ready .ld-mark{animation:none;opacity:0;transform:scale(1.15)}
 
-/* filo di pasta che si srotola con lo scroll */
-#sp{position:fixed;right:3px;top:0;width:18px;height:100vh;height:100dvh;z-index:45;pointer-events:none}
-#sp path{fill:none;stroke:var(--yolk);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.9}
-.spd{position:fixed;right:3px;top:0;width:18px;height:0;z-index:46;pointer-events:none}
-.spd i{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e4664f,var(--ragu) 55%,var(--ragu-d));box-shadow:0 0 0 3px rgba(19,10,7,.6)}
 
 /* barra in alto */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) var(--pad) 14px;transition:background .4s,backdrop-filter .4s}
@@ -74,6 +69,7 @@ section,footer{position:relative}
 .btn-wa{background:var(--wa);color:#04200e;box-shadow:0 12px 32px -10px rgba(37,211,102,.7)}
 .btn-wa:hover{transform:translateY(-3px)}
 .btn-wa::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.8s infinite}
+.btn-static::after{content:none}
 .btn-ghost{border-color:rgba(251,241,220,.38);color:var(--crema)}
 .btn-ghost:hover{background:var(--crema);color:var(--ink)}
 .btn-dark{background:var(--ink);color:var(--crema)}
@@ -213,7 +209,7 @@ section,footer{position:relative}
 .dove-grid{display:grid;gap:44px}
 @media(min-width:960px){.dove-grid{grid-template-columns:1fr 1fr;gap:80px;align-items:center}}
 .mapbox{position:relative;border-radius:50% 50% 30px 30px/26% 26% 30px 30px;overflow:hidden;aspect-ratio:4/5;background:#3a2717;border:2px solid rgba(241,207,122,.55);box-shadow:0 40px 90px -30px #000;isolation:isolate;max-width:560px;width:100%;margin:0 auto}
-.mapbox svg,.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapbox>svg,.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .mapbox iframe{filter:sepia(.3) saturate(.85) contrast(1.02);z-index:2}
 #mapg{transition:transform .5s var(--ease);transform-origin:300px 320px}
 .drift{animation:drift 12s ease-in-out infinite alternate}
@@ -291,9 +287,6 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
   <div class="ld-h ld-t"></div><div class="ld-h ld-b"></div>
   <div class="ld-mark">Trattoria San Giovanni<small>Rimini</small></div>
 </div>
-
-<svg id="sp" viewBox="0 0 18 1000" preserveAspectRatio="none" aria-hidden="true"><path d=""/></svg>
-<div class="spd" aria-hidden="true"><i id="spd"></i></div>
 
 <nav class="nav" id="nav" aria-label="Principale">
   <a class="brand" href="#top" aria-label="Trattoria San Giovanni, inizio pagina"><span class="mono">SG</span><span>Trattoria<br>San Giovanni</span></a>
@@ -479,7 +472,7 @@ footer{background:var(--ink);padding:clamp(70px,10vw,130px) 0 calc(150px + env(s
       <button class="maptoggle" id="maptoggle" type="button">Apri la mappa reale</button>
       <div class="mapcard">
         <div><b>Via Flaminia, 11</b><span>47923 Rimini · 3H3F+C7</span></div>
-        <a class="btn btn-wa btn-sm" data-dir><svg class="ic"><use href="#i-pin"/></svg>Indicazioni</a>
+        <a class="btn btn-wa btn-sm btn-static" data-dir><svg class="ic"><use href="#i-pin"/></svg>Indicazioni</a>
       </div>
     </div>
 
@@ -590,17 +583,6 @@ function upWords(){
   words.forEach((w,i)=>w.classList.toggle('on',i<n));
 }
 
-/* ---------- filo di pasta laterale ---------- */
-const spP=$('#sp path'),spD=$('#spd');
-{let d='';for(let y=0;y<=1000;y+=20){const x=9+6*Math.sin(y/1000*Math.PI*2*9);d+=(y?'L':'M')+x.toFixed(2)+' '+y+' '}spP.setAttribute('d',d)}
-const spL=spP.getTotalLength();spP.style.strokeDasharray=spL;
-function upProg(){
-  const h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0;
-  spP.style.strokeDashoffset=spL*(1-p);
-  const pt=spP.getPointAtLength(spL*p);
-  spD.style.transform=`translate(${pt.x.toFixed(1)}px,${(pt.y/1000*innerHeight).toFixed(1)}px)`;
-}
-
 /* ---------- scroll ---------- */
 const nav=$('#nav'),dock=$('#dock'),fab=$('#fab');let tick=false;
 function onScroll(){
@@ -609,11 +591,11 @@ function onScroll(){
     tick=false;const y=scrollY;SV+=(y-scrollLast)*.35;scrollLast=y;
     nav.classList.toggle('solid',y>40);
     const show=y>innerHeight*.55;dock.classList.toggle('show',show);fab.classList.toggle('show',show);
-    upProg();upWords();
+    upWords();
   });
 }
 addEventListener('scroll',onScroll,{passive:true});
-let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{mqBuild();upProg();upWords()},150)});
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{mqBuild();upWords()},150)});
 fontsP.then(()=>{mqBuild()});
 onScroll();
 
